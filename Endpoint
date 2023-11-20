@@ -1,0 +1,35 @@
+const express = require('express');
+const admin = require('firebase-admin');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Configuración de Firebase
+const serviceAccount = require('./path/to/your/google-services.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+// Middleware para parsear JSON
+app.use(bodyParser.json());
+
+// Endpoint para registrar usuario
+app.post('/registrar-usuario', (req, res) => {
+  const { id_dispositivo, id_usuario_instagram } = req.body;
+
+  // Almacena la información en la base de datos (debes implementar esto)
+  // Ejemplo básico:
+  const databaseRef = admin.database().ref('/usuario_instagram');
+  databaseRef.push({
+    id_dispositivo,
+    id_usuario_instagram,
+  });
+
+  res.send('Usuario registrado correctamente.');
+});
+
+// Inicia el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});
