@@ -1,0 +1,20 @@
+app.post('/dar-like', async (req, res) => {
+  const { id_foto_instagram, id_usuario_instagram, id_dispositivo } = req.body;
+
+  // Realizar la solicitud a la API de Instagram para dar like
+  // ...
+
+  // Registrar el like en tu base de datos
+  const databaseRef = admin.database().ref('/likes');
+  databaseRef.push({
+    id_foto_instagram,
+    id_usuario_instagram,
+    id_dispositivo,
+    timestamp: Date.now(),
+  });
+
+  // Enviar notificación push (ver siguiente paso)
+  // ...
+
+  res.status(200).json({ mensaje: 'Like exitoso' });
+});
