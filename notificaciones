@@ -1,0 +1,19 @@
+const messaging = admin.messaging();
+
+// Enviar notificación push
+function enviarNotificacion(token, mensaje) {
+  const payload = {
+    notification: {
+      title: 'Nuevo Like',
+      body: mensaje,
+    },
+  };
+
+  messaging.sendToDevice(token, payload)
+    .then(response => {
+      console.log('Notificación enviada con éxito:', response);
+    })
+    .catch(error => {
+      console.error('Error al enviar notificación:', error);
+    });
+}
