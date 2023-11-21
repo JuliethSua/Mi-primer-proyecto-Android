@@ -1,0 +1,62 @@
+public Mascota(String nombre, int rating) {
+    this.nombre = nombre;
+    this.rating = rating;
+}
+
+public String getNombre() {
+    return nombre;
+}
+
+public int getRating() {
+    return rating;
+}
+} #Crear el diseño de cada elemento de la lista
+
+<TextView
+    android:id="@+id/textViewNombre"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:textSize="18sp"
+    android:textStyle="bold"/>
+
+<ImageView
+    android:id="@+id/imageViewRating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_bone_gray"
+    android:layout_marginStart="8dp"/>
+#Definir los íconos de huesos
+
+#Usar el RecyclerView en tu actividad principal import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity; import androidx.recyclerview.widget.LinearLayoutManager; import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList; import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+private RecyclerView recyclerView;
+private MascotaAdapter mascotaAdapter;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    recyclerView = findViewById(R.id.recyclerView);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    List<Mascota> mascotas = obtenerMascotas();
+    mascotaAdapter = new MascotaAdapter(mascotas, this);
+    recyclerView.setAdapter(mascotaAdapter);
+}
+
+private List<Mascota> obtenerMascotas() {
+    List<Mascota> mascotas = new ArrayList<>();
+    mascotas.add(new Mascota("Max", 3));
+    mascotas.add(new Mascota("Bella", 5));
+    // Agrega más mascotas según sea necesario
+    return mascotas;
+}
+}
